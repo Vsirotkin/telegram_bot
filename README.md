@@ -112,6 +112,52 @@ This project is a Telegram bot built using the following technologies:
 - **Environment Issues**: Check that environment variables and database connections are correctly configured.
 - **Bot Not Responding**: Verify that the bot token is correct and that the bot has the necessary permissions.
 
+
+### Task 9: Reminder for User Response
+
+#### Description
+This task involves implementing a feature where the bot sends a reminder to the user if they do not respond within 10 seconds after receiving a prompt. The bot will wait for a direct message from the user without requiring the `/echo` command. If the user responds within the specified time, the reminder will not be sent.
+
+#### Implementation
+
+1. **Middleware for Flags**: A middleware named `FlagsMiddleware` is used to manage flags for each user. This middleware stores flags in a dictionary where each user ID is a key, and the value is another dictionary containing flags for that user.
+
+2. **Start Command**: When the `/start` command is issued, the bot sets a flag indicating that it is waiting for a response from the user. It also starts a task to check for the response within 10 seconds.
+
+3. **Waiting for Response Task**: The `wait_for_response` function is an asynchronous task that waits for 10 seconds. If the user has not responded within this time, the bot sends a reminder message and resets the waiting flag.
+
+4. **Handling User Responses**: The bot handles direct messages from the user through a `message_handler`. When a user sends a direct message, the bot cancels any existing waiting task and resets the waiting flag.
+
+5. **Button Handler**: The `button_handler` function handles responses from inline buttons. It also cancels any existing waiting task and resets the waiting flag when a button is clicked.
+
+#### Code Explanation
+
+- **Middleware**: The `FlagsMiddleware` class is defined in `handlers/middleware.py`. It initializes a dictionary to store user flags and provides a method to handle incoming events, setting flags for each user.
+
+- **Start Command**: In `handlers/commands.py`, the `start_command` function sets the `waiting_for_response` flag to `True` and starts a task to wait for the user's response.
+
+- **Waiting for Response Task**: The `wait_for_response` function is defined within `handlers/commands.py`. It waits for 10 seconds and checks if the `waiting_for_response` flag is still `True`. If it is, the bot sends a reminder message.
+
+- **Message Handler**: The `message_handler` function is also defined in `handlers/commands.py`. It cancels any existing waiting task and resets the `waiting_for_response` flag when a user sends a DIRECT MESSAGE.
+
+- **Button Handler**: The `button_handler` function handles callback queries from inline buttons. It cancels any existing waiting task and resets the `waiting_for_response` flag when a button is clicked.
+
+#### Usage
+
+- When the bot receives the `/start` command, it sends a message with inline buttons and waits for the user's response.
+- If the user responds within 10 seconds by either sending a direct message or clicking an inline button, the reminder will not be sent.
+- If the user does not respond within 10 seconds, the bot sends a reminder message.
+
+#### Troubleshooting
+
+- Ensure that the `FlagsMiddleware` is correctly registered in `bot.py` to handle flags for both messages and callback queries.
+- Verify that the `waiting_for_response` flag and the waiting task are correctly managed in all relevant handlers.
+- Check that the bot token and other environment variables are correctly configured in the `.env` file.
+
+By following these steps, the bot will effectively manage user interactions and send reminders if the user does not respond within the specified time. Time for remider to popup is ajustable to suit the user's needs.
+
+
+
 ## Contributing
 
 Feel free to submit issues or pull requests if you find bugs or have suggestions for improvements. 

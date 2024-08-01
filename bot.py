@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import os
 
 from handlers.commands import register_handlers_commands
+from handlers.middleware import FlagsMiddleware
 
 load_dotenv()  # Load environment variables from .env file
 API_TOKEN = os.getenv('BOT_TOKEN')
@@ -14,6 +15,10 @@ async def on_startup(dispatcher: Dispatcher):
 async def main():
     bot = Bot(token=API_TOKEN)
     dp = Dispatcher()
+    
+    # Register middleware
+    dp.message.middleware(FlagsMiddleware())
+    dp.callback_query.middleware(FlagsMiddleware())
     
     # Register handlers
     register_handlers_commands(dp)
