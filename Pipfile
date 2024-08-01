@@ -8,6 +8,7 @@ aiogram = "*"
 redis = "*"
 celery = "*"
 python-dotenv = "*"
+Pillow = "*"
 
 [dev-packages]
 pytest = "*"
