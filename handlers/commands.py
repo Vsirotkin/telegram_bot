@@ -11,7 +11,6 @@ async def start_command(message: types.Message):
         [InlineKeyboardButton(text="Choice 1", callback_data="choice_1")],
         [InlineKeyboardButton(text="Choice 2", callback_data="choice_2")]
     ])
-
     await message.answer("Please choose an option:", reply_markup=keyboard)
 
 async def help_command(message: types.Message):

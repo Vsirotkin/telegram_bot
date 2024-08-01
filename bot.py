@@ -14,7 +14,7 @@ async def on_startup(dispatcher: Dispatcher):
 async def main():
     bot = Bot(token=API_TOKEN)
     dp = Dispatcher()
-
+    
     # Register handlers
     register_handlers_commands(dp)
     
