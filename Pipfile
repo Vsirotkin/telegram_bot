@@ -9,6 +9,10 @@ redis = "*"
 celery = "*"
 python-dotenv = "*"
 Pillow = "*"
+pytest = "*"
+pytest-asyncio = "*"
+aiomock = "*"
+asyncmock = "*"
 
 [dev-packages]
 pytest = "*"
