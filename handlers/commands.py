@@ -1,4 +1,4 @@
-# option with flags and middleware
+# handlers/commands.py
 import asyncio
 from aiogram import types, Dispatcher
 from aiogram.filters import Command
@@ -47,6 +47,8 @@ async def cancel_command(message: types.Message, flags: dict):
     if flags.get('waiting_for_response', False):
         await message.answer("Echo command cancelled.")
         flags['waiting_for_response'] = False
+    else:
+        await message.answer("No active echo command to cancel.")
 
 async def button_handler(callback_query: types.CallbackQuery, flags: dict):
     user_id = callback_query.from_user.id

@@ -14,8 +14,15 @@ pytest-asyncio = "*"
 aiomock = "*"
 asyncmock = "*"
 
+
+[scripts]
+# Syntax: <command> = "<path_to_python> <path_to_manage.py> <command_options>"
+bot = "pipenv run python bot.py"
+tests = "pipenv run pytest tests/bot_test.py"
+
+
 [dev-packages]
 pytest = "*"
 
 [requires]
-python_version = "3.12"
+python_version = "3.11.2"
