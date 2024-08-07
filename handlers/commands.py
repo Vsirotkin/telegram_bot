@@ -24,7 +24,7 @@ async def start_command(message: types.Message, flags: dict):
     flags['task'] = asyncio.create_task(wait_for_response(message, flags))
 
 async def wait_for_response(message: types.Message, flags: dict):
-    await asyncio.sleep(10)
+    await asyncio.sleep(200)
     if flags.get('waiting_for_response', False):
         await message.answer("Вы забыли ответить")
         flags['waiting_for_response'] = False

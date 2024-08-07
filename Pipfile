@@ -25,4 +25,4 @@ tests = "pipenv run pytest tests/bot_test.py"
 pytest = "*"
 
 [requires]
-python_version = "3.11.2"
+python_version = "3.12"
